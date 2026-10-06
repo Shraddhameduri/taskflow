@@ -1,0 +1,37 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="brand">
+      <span class="logo">◈</span>
+      <h1>TaskFlow</h1>
+    </div>
+    <p class="subtitle">Sign in to your workspace</p>
+
+    <form (ngSubmit)="submit()" #f="ngForm">
+      <label>
+        Username
+        <input type="text" name="username" [(ngModel)]="username" required autocomplete="username" placeholder="admin" />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" placeholder="••••••••" />
+      </label>
+
+      @if (error) {
+        <div class="error">{{ error }}</div>
+      }
+
+      <button type="submit" class="primary" [disabled]="loading || !f.form.valid">
+        {{ loading ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+
+    <p class="switch">No account? <a routerLink="/register">Create one</a></p>
+
+    <div class="demo">
+      <span>Demo accounts</span>
+      <code>admin / admin123</code>
+      <code>manager / manager123</code>
+      <code>member / member123</code>
+    </div>
+  </div>
+</div>

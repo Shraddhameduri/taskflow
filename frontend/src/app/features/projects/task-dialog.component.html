@@ -1,0 +1,33 @@
+<div class="modal-backdrop" (click)="closed.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ isEdit ? 'Edit task' : 'New task' }}</h3>
+
+    <label>Title
+      <input [(ngModel)]="title" placeholder="Design the homepage" maxlength="200" />
+    </label>
+    <label>Description
+      <textarea [(ngModel)]="description" rows="3" placeholder="Details, acceptance criteria…"></textarea>
+    </label>
+    <label>Priority
+      <select [(ngModel)]="priority">
+        @for (p of priorities; track p) {
+          <option [value]="p">{{ p }}</option>
+        }
+      </select>
+    </label>
+    <label>Assignee (username)
+      <input [(ngModel)]="assigneeUsername" placeholder="member" />
+    </label>
+
+    @if (error) {
+      <div class="banner error">{{ error }}</div>
+    }
+
+    <div class="modal-actions">
+      <button class="ghost" (click)="closed.emit()">Cancel</button>
+      <button class="primary" (click)="save()" [disabled]="saving || !title.trim()">
+        {{ saving ? 'Saving…' : isEdit ? 'Save changes' : 'Create task' }}
+      </button>
+    </div>
+  </div>
+</div>

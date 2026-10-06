@@ -1,0 +1,63 @@
+<div class="page-head">
+  <div>
+    <h2>Projects</h2>
+    <p class="muted">{{ list.length }} project{{ list.length === 1 ? '' : 's' }}</p>
+  </div>
+  @if (auth.canManage()) {
+    <button class="primary" (click)="showCreate = true">+ New project</button>
+  }
+</div>
+
+@if (error) {
+  <div class="banner error">{{ error }}</div>
+}
+
+@if (showCreate) {
+  <div class="modal-backdrop" (click)="showCreate = false">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>New project</h3>
+      <label>Name
+        <input [(ngModel)]="newName" placeholder="Website redesign" maxlength="120" />
+      </label>
+      <label>Description
+        <textarea [(ngModel)]="newDescription" rows="3" placeholder="What is this project about?"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button class="ghost" (click)="showCreate = false">Cancel</button>
+        <button class="primary" (click)="create()" [disabled]="creating || !newName.trim()">
+          {{ creating ? 'Creating…' : 'Create' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (loading) {
+  <p class="muted">Loading projects…</p>
+} @else if (list.length === 0) {
+  <div class="empty">
+    <p>No projects yet.</p>
+    @if (auth.canManage()) {
+      <button class="primary" (click)="showCreate = true">Create the first one</button>
+    }
+  </div>
+} @else {
+  <div class="grid">
+    @for (p of list; track p.id) {
+      <div class="card">
+        <div class="card-top">
+          <h3><a [routerLink]="['/projects', p.id]">{{ p.name }}</a></h3>
+          @if (auth.canManage()) {
+            <button class="icon-btn danger" title="Delete project" (click)="remove(p)">✕</button>
+          }
+        </div>
+        <p class="desc">{{ p.description || 'No description.' }}</p>
+        <div class="meta">
+          <span>Owner: {{ p.ownerUsername }}</span>
+          <span>{{ p.createdAt | date: 'mediumDate' }}</span>
+        </div>
+        <a class="open" [routerLink]="['/projects', p.id]">Open board →</a>
+      </div>
+    }
+  </div>
+}

@@ -1,0 +1,181 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background: #111c34;
+  color: #dbe3f5;
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 0.9rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.3rem 0.6rem 1.2rem;
+  cursor: pointer;
+}
+
+.brand .logo {
+  font-size: 1.5rem;
+  color: #8ea2ff;
+}
+
+.brand .name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  color: #b9c4e2;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background 0.12s, color 0.12s;
+}
+
+.sidebar nav a .icon {
+  width: 1.4rem;
+  text-align: center;
+}
+
+.sidebar nav a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.sidebar nav a.active {
+  background: rgba(142, 162, 255, 0.18);
+  color: #fff;
+}
+
+.userbox {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0 0.4rem;
+}
+
+.avatar {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5b7cff, #9a6bff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.who strong {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.roles {
+  font-size: 0.72rem;
+  color: #8b98bd;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+  padding: 0 0.4rem;
+}
+
+.ghost {
+  flex: 1;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #c6d0ec;
+  border-radius: 8px;
+  padding: 0.4rem 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.ghost.danger:hover {
+  border-color: #f87171;
+  color: #fca5a5;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem 2.2rem;
+  max-width: 1200px;
+}
+
+@media (max-width: 760px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+  }
+  .brand {
+    padding: 0;
+  }
+  .sidebar nav {
+    flex-direction: row;
+    flex: 1;
+  }
+  .userbox {
+    display: none;
+  }
+  .content {
+    padding: 1.2rem;
+  }
+}

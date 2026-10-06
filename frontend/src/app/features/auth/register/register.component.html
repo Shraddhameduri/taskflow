@@ -1,0 +1,34 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="brand">
+      <span class="logo">◈</span>
+      <h1>TaskFlow</h1>
+    </div>
+    <p class="subtitle">Create your account</p>
+
+    <form (ngSubmit)="submit()" #f="ngForm">
+      <label>
+        Username
+        <input type="text" name="username" [(ngModel)]="username" required minlength="3" autocomplete="username" placeholder="jdoe" />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" placeholder="jdoe@example.com" />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" [(ngModel)]="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" />
+      </label>
+
+      @if (error) {
+        <div class="error">{{ error }}</div>
+      }
+
+      <button type="submit" class="primary" [disabled]="loading || !f.form.valid">
+        {{ loading ? 'Creating…' : 'Create account' }}
+      </button>
+    </form>
+
+    <p class="switch">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</div>

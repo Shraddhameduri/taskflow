@@ -1,0 +1,65 @@
+<div class="page-head">
+  <div>
+    <h2>User management</h2>
+    <p class="muted">Roles, access and accounts</p>
+  </div>
+</div>
+
+@if (error) {
+  <div class="banner error">{{ error }}</div>
+}
+
+@if (loading) {
+  <p class="muted">Loading users…</p>
+} @else {
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Status</th>
+          <th class="right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of list; track u.id) {
+          <tr [class.disabled]="!u.enabled">
+            <td><strong>{{ u.username }}</strong></td>
+            <td class="muted">{{ u.email }}</td>
+            <td>
+              @if (editingRolesFor === u.id) {
+                <span class="role-edit">
+                  @for (r of allRoles; track r) {
+                    <label class="chip-check">
+                      <input type="checkbox" [checked]="draftRoles.includes(r)" (change)="toggleDraftRole(r)" />
+                      {{ r }}
+                    </label>
+                  }
+                  <button class="mini primary" (click)="saveRoles(u)">Save</button>
+                  <button class="mini" (click)="editingRolesFor = null">Cancel</button>
+                </span>
+              } @else {
+                <span class="roles">
+                  @for (r of u.roles; track r) {
+                    <span class="role-badge">{{ r }}</span>
+                  }
+                  <button class="link" (click)="startRoleEdit(u)">edit</button>
+                </span>
+              }
+            </td>
+            <td>
+              <button class="status" [class.on]="u.enabled" (click)="toggleEnabled(u)" [title]="u.enabled ? 'Disable' : 'Enable'">
+                {{ u.enabled ? 'Active' : 'Disabled' }}
+              </button>
+            </td>
+            <td class="right">
+              <button class="mini danger" (click)="remove(u)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

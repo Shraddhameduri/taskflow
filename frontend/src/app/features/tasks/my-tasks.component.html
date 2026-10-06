@@ -1,0 +1,33 @@
+<div class="page-head">
+  <div>
+    <h2>My Tasks</h2>
+    <p class="muted">Everything assigned to you</p>
+  </div>
+</div>
+
+@if (error) {
+  <div class="banner error">{{ error }}</div>
+}
+
+@if (loading) {
+  <p class="muted">Loading…</p>
+} @else if (list.length === 0) {
+  <div class="empty">Nothing assigned to you yet. 🎉</div>
+} @else {
+  <div class="rows">
+    @for (t of list; track t.id) {
+      <div class="row">
+        <div class="info">
+          <strong>{{ t.title }}</strong>
+          <span class="muted">{{ t.projectName }}</span>
+          <span class="priority" [class]="'pr-' + t.priority">{{ t.priority }}</span>
+        </div>
+        <select [ngModel]="t.status" (ngModelChange)="changeStatus(t, $event)" aria-label="Status">
+          @for (s of statuses; track s) {
+            <option [value]="s">{{ statusLabel(s) }}</option>
+          }
+        </select>
+      </div>
+    }
+  </div>
+}
